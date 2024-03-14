@@ -20,6 +20,11 @@ public class Member {
 
   private MemberType type;
 
+  public void changeTeam(Team team) {
+    setTeam(team);
+    team.getMembers().add(this);
+  }
+
   public Long getId() {
     return id;
   }
@@ -48,7 +53,7 @@ public class Member {
     return team;
   }
 
-  public void setTeam(Team team) {
+  private void setTeam(Team team) {
     this.team = team;
   }
 

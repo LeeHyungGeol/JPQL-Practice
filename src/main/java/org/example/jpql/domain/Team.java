@@ -11,6 +11,7 @@ import java.util.List;
 public class Team {
   @Id @GeneratedValue
   private Long id;
+  private String name;
   private int orderAmount;
 
   @OneToMany(mappedBy = "team")
@@ -22,6 +23,14 @@ public class Team {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public int getOrderAmount() {
