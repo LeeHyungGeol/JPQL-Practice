@@ -22,6 +22,10 @@ public class Order {
   private Address address;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "MEMBER_ID")
+  private Member member;
+
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "PRODUCT_ID")
   private Product product;
 

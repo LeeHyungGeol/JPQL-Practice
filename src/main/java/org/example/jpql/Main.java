@@ -38,12 +38,9 @@ public class Main {
       em.flush();
       em.clear();
 
-      String query = "select function('group_concat', m.username) from Member m";
+      String query = "select m.username from Team t join t.members m";
       List<String> result = em.createQuery(query).getResultList();
 
-      for (String s : result) {
-        System.out.println("s = " + s);
-      }
 
       tx.commit();
     } catch (Exception e) {
