@@ -29,14 +29,20 @@ public class Main {
       member.changeTeam(team);
       em.persist(member);
 
+      Member member2 = new Member();
+      member2.setUsername("같은 이름 username");
+      member2.setAge(22);
+      member2.changeTeam(team);
+      em.persist(member2);
+
       em.flush();
       em.clear();
 
-      String query = "select nullif(m.username, '같은 이름 username') from Member m";
+      String query = "select function('group_concat', m.username) from Member m";
       List<String> result = em.createQuery(query).getResultList();
 
       for (String s : result) {
-        System.out.println("username = " + s);
+        System.out.println("s = " + s);
       }
 
       tx.commit();
