@@ -19,28 +19,55 @@ public class Main {
     tx.begin();
 
     try {
-      Team team = new Team();
-      team.setName("memberTeam1");
-      em.persist(team);
+      Team teamA = new Team();
+      teamA.setName("teamA");
+      em.persist(teamA);
 
-      Member member = new Member();
-      member.setUsername("같은 이름 username");
-      member.setAge(22);
-      member.changeTeam(team);
-      em.persist(member);
+      Team teamB = new Team();
+      teamB.setName("teamB");
+      em.persist(teamB);
+
+      Team teamC = new Team();
+      teamC.setName("teamB");
+      em.persist(teamC);
+
+      Member member1 = new Member();
+      member1.setUsername("member1");
+      member1.setAge(22);
+      member1.changeTeam(teamA);
+      em.persist(member1);
 
       Member member2 = new Member();
-      member2.setUsername("같은 이름 username");
+      member2.setUsername("member2");
       member2.setAge(22);
-      member2.changeTeam(team);
+      member2.changeTeam(teamA);
       em.persist(member2);
+
+      Member member3 = new Member();
+      member3.setUsername("member3");
+      member3.setAge(22);
+      member3.changeTeam(teamB);
+      em.persist(member3);
+
+      Member member4 = new Member();
+      member4.setUsername("member4");
+      member4.setAge(22);
+      em.persist(member4);
 
       em.flush();
       em.clear();
 
-      String query = "select m.username from Team t join t.members m";
-      List<String> result = em.createQuery(query).getResultList();
+      String query = "select t from Team t join t.members m";
+      List<Team> result = em.createQuery(query, Team.class).getResultList();
 
+      System.out.println("result.size() = " + result.size());
+
+      for (Team t : result) {
+        System.out.println("team = " + t.getName());
+        for (Member m : t.getMembers()) {
+          System.out.println("-> member = " + m.getUsername());
+        }
+      }
 
       tx.commit();
     } catch (Exception e) {

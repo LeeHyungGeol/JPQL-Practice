@@ -12,7 +12,6 @@ public class Team {
   @Id @GeneratedValue
   private Long id;
   private String name;
-  private int orderAmount;
 
   @OneToMany(mappedBy = "team")
   private List<Member> members = new ArrayList<>();
@@ -31,14 +30,6 @@ public class Team {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public int getOrderAmount() {
-    return orderAmount;
-  }
-
-  public void setOrderAmount(int orderAmount) {
-    this.orderAmount = orderAmount;
   }
 
   public List<Member> getMembers() {
