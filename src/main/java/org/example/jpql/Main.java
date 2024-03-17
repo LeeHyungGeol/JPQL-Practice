@@ -54,16 +54,19 @@ public class Main {
       member4.setAge(22);
       em.persist(member4);
 
-      em.flush();
+
+      int count = em.createQuery("update Member m set age = 10")
+        .executeUpdate();
+      Member beforeClearMember = em.find(Member.class, member2.getId());
+      System.out.println("beforeClearMember.getAge() = " + beforeClearMember.getAge());
+      System.out.println("member1.getAge() = " + member1.getAge());
+
       em.clear();
 
-      List<Member> members = em.createNamedQuery("Member.findByUsername", Member.class)
-        .setParameter("username", member3.getUsername())
-        .getResultList();
+      Member afterClearMember = em.find(Member.class, member2.getId());
+      System.out.println("afterClearMember.getAge() = " + afterClearMember.getAge());
+      System.out.println("member1.getAge() = " + member1.getAge());
 
-      for (Member member : members) {
-        System.out.println("member = " + member);
-      }
 
       tx.commit();
     } catch (Exception e) {
