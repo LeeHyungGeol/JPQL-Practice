@@ -57,12 +57,11 @@ public class Main {
       em.flush();
       em.clear();
 
-      String query = "select m from Member m where m.team = :team";
-      List<Member> result = em.createQuery(query, Member.class)
-        .setParameter("team", teamA)
+      List<Member> members = em.createNamedQuery("Member.findByUsername", Member.class)
+        .setParameter("username", member3.getUsername())
         .getResultList();
 
-      for (Member member : result) {
+      for (Member member : members) {
         System.out.println("member = " + member);
       }
 

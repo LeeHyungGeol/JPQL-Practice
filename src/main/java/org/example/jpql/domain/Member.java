@@ -6,8 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(
+  name = "Member.findByUsername",
+  query = "select m from Members m where m.username = :username"
+)
 public class Member {
   @Id @GeneratedValue
   private Long id;
